@@ -60,7 +60,7 @@
 
 ## Testing REST APIs in Postman
 - Django REST Framework was used to develop the following 3 REST API GET endpoints:
-  - /api/weather 
+  - /api/weather
   - /api/yield
   - /api/weather/stats
 - To use the API start your local server
@@ -74,7 +74,7 @@
 
 ## Testing REST APIs in Django REST Framework
 - Django REST Framework was used to develop the following 3 REST API GET endpoints:
-  - /api/weather 
+  - /api/weather
   - /api/yield
   - /api/weather/stats
 - To use the API start your local server and paste the following urls in your browser

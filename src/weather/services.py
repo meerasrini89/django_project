@@ -4,7 +4,7 @@ from weather.constants import MISSING_VALUE
 from weather.models import Weather, Statistics
 
 
-def generate_years_list() -> list:    
+def generate_years_list() -> list:
     if Weather.objects.all().count() == 0:
         return []
     min_date = Weather.objects.aggregate(Min("date"))
@@ -18,7 +18,7 @@ def generate_years_list() -> list:
     return years
 
 
-def calculate_stats(years: list) -> None:    
+def calculate_stats(years: list) -> None:
     usable_max_data = Weather.objects.exclude(max_temp=MISSING_VALUE)
     usable_min_data = Weather.objects.exclude(min_temp=MISSING_VALUE)
     usable_precip_data = Weather.objects.exclude(precipitation=MISSING_VALUE)
