@@ -1,5 +1,3 @@
-#This is to ingest data from wx_data and yld_data
-
 import os
 from django.core.management.base import BaseCommand
 from datetime import datetime
