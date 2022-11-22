@@ -13,15 +13,15 @@ class Command(BaseCommand):
         self.success_count = 0
         self.fail_count = 0
         super().__init__()
-    
+
     help = "Data Ingestion"
     def add_arguments(self, parser):
-        parser.add_argument(            
+        parser.add_argument(
             "--weather",
             action="store_true",
             help="Ingest weather data from the wx_data folder",
         )
-        parser.add_argument(            
+        parser.add_argument(
             "--yield",
             action="store_true",
             help="Ingest yield data from the yld_data folder",
@@ -64,7 +64,7 @@ class Command(BaseCommand):
         end_msg = f"Completed {data_type} data ingestion at {end_time}. No Of Records Ingested : {self.success_count}"
         self.stdout.write(self.style.SUCCESS(end_msg))
 
-    def ingest_weather_data(self, file_path, file_name):        
+    def ingest_weather_data(self, file_path, file_name):
         start_count = Weather.objects.all().count()
         df = pd.read_table(
             file_path,
@@ -82,7 +82,7 @@ class Command(BaseCommand):
         curr_count = Weather.objects.all().count()
         self._update_counts(records, start_count, curr_count)
 
-    def ingest_yield_data(self, file_path):        
+    def ingest_yield_data(self, file_path):
         start_count = Corn.objects.all().count()
         df = pd.read_table(
             file_path,
@@ -94,10 +94,10 @@ class Command(BaseCommand):
         returned_objs = Corn.objects.bulk_update_or_create(
             objs, ["corn_yield"], match_field="year", yield_objects=True
         )
-        
+
         returned_objs = list(returned_objs)
         updated_objs = returned_objs[0][1]
-        
+
         start_count -= len(updated_objs)
         curr_count = Corn.objects.all().count()
         self._update_counts(records, start_count, curr_count)
@@ -119,7 +119,7 @@ class Command(BaseCommand):
         shifted_num = self._shift_decimal(num, -2)
         return round(shifted_num, 2)
 
-    def _shift_decimal(self, num: float, shift: int) -> float:        
+    def _shift_decimal(self, num: float, shift: int) -> float:
         if num == -9999.0:
             return num
         shifted_num = num * 10.0**shift
